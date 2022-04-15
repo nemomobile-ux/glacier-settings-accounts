@@ -37,6 +37,8 @@ import QtQuick.Controls.Styles.Nemo 1.0
 
 import org.nemomobile.accounts 1.0
 
+import "accounts.js" as ACC
+
 Page {
 
     headerTools: HeaderToolsLayout {
@@ -48,7 +50,6 @@ Page {
                 iconSource: "image://theme/plus"
                 showCounter: false
                 onClicked: {
-                    console.log("ADD");
                     onClicked: {
                         pageStack.push(Qt.resolvedUrl("CreateAccountSheet.qml"),
                                        { accountModel: accountModel })
@@ -82,12 +83,15 @@ Page {
         visible: accountListView.count > 0
 
         delegate:  ListViewItemWithActions {
-            icon: model.accountIcon
+            icon: ACC.formatIcon(model.accountIcon)
             label: model.providerDisplayName
             description: model.accountDisplayName;
             showNext: false;
             onClicked: {
-                console.log("edit")
+                console.log("edit accountId" + accountId
+                            + " providerDisplayName:" + providerDisplayName
+                            + " accountIcon:" + accountIcon
+                            + " accountDisplayName: "+accountDisplayName)
             }
 
             actions:[
@@ -108,4 +112,5 @@ Page {
             flickable: accountListView
         }
     }
+
 }
