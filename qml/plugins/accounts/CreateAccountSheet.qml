@@ -37,6 +37,8 @@ import QtQuick.Controls.Styles.Nemo 1.0
 
 import org.nemomobile.accounts 1.0
 
+import "accounts.js" as ACC
+
 Page {
     id: sheet
 
@@ -55,7 +57,7 @@ Page {
         anchors.margins: Theme.itemSpacingMedium
         model: AccountProviderModel { }
         delegate: ListViewItemWithActions {
-            icon : formatIcon(model.providerIcon)
+            icon : ACC.formatIcon(model.providerIcon)
             label: model.providerDisplayName
             onClicked: {
                 sheet.selectedProvider = model.providerName
@@ -69,15 +71,4 @@ Page {
     }
 
 
-    function formatIcon(icon) {
-        if(icon == "image://theme/graphic-service-generic-mail") {
-            return "image://theme/envelope"
-        }
-
-        if(icon == "icon-l-google") {
-            return "image://theme/at"
-        }
-
-        return "image://theme/"+icon
-    }
 }
