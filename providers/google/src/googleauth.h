@@ -23,23 +23,22 @@
 #include <QOAuth2AuthorizationCodeFlow>
 #include <QObject>
 
-class GoogleAuth : public QObject
-{
+class GoogleAuth : public QObject {
     Q_OBJECT
     Q_DISABLE_COPY(GoogleAuth)
 
 public:
-    GoogleAuth(QObject *parent = 0);
+    GoogleAuth(QObject* parent = 0);
     Q_INVOKABLE void auth();
 
 signals:
     void configReady();
-    void openUrl(const QString &authUrl);
+    void openUrl(const QString& authUrl);
     void authFinish();
 
 private slots:
     void startAuth();
-    void requestOpenUrl(const QUrl &url);
+    void requestOpenUrl(const QUrl& url);
     void onAccessGranded();
 
 private:
