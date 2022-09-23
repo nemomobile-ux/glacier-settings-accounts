@@ -17,19 +17,19 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include <QStandardPaths>
+#include <QDebug>
 #include <QFile>
 #include <QJsonDocument>
-#include <QDebug>
 #include <QJsonObject>
 #include <QOAuth2AuthorizationCodeFlow>
 #include <QOAuthHttpServerReplyHandler>
+#include <QStandardPaths>
 
 #include "googleauth.h"
 
-GoogleAuth::GoogleAuth(QObject *parent) : QObject(parent)
+GoogleAuth::GoogleAuth(QObject* parent)
+    : QObject(parent)
 {
-
 }
 
 void GoogleAuth::auth()
@@ -53,23 +53,23 @@ void GoogleAuth::startAuth()
     m_google->setReplyHandler(replyHandler);
 
     m_google->setModifyParametersFunction([](QAbstractOAuth::Stage stage, QVariantMap* parameters) {
-            // Percent-decode the "code" parameter so Google can match it
-            if (stage == QAbstractOAuth::Stage::RequestingAccessToken) {
-                QByteArray code = parameters->value("code").toByteArray();
-                (*parameters)["code"] = QUrl::fromPercentEncoding(code);
-            }
+        // Percent-decode the "code" parameter so Google can match it
+        if (stage == QAbstractOAuth::Stage::RequestingAccessToken) {
+            QByteArray code = parameters->value("code").toByteArray();
+            (*parameters)["code"] = QUrl::fromPercentEncoding(code);
+        }
     });
 
     connect(m_google, &QOAuth2AuthorizationCodeFlow::authorizeWithBrowser,
-            this, &GoogleAuth::requestOpenUrl);
+        this, &GoogleAuth::requestOpenUrl);
 
     connect(m_google, &QOAuth2AuthorizationCodeFlow::granted,
-            this, &GoogleAuth::onAccessGranded);
+        this, &GoogleAuth::onAccessGranded);
 
     m_google->grant();
 }
 
-void GoogleAuth::requestOpenUrl(const QUrl &url)
+void GoogleAuth::requestOpenUrl(const QUrl& url)
 {
     qDebug() << Q_FUNC_INFO << url.toString();
     emit openUrl(url.toString());
@@ -78,7 +78,7 @@ void GoogleAuth::requestOpenUrl(const QUrl &url)
 void GoogleAuth::onAccessGranded()
 {
     qDebug() << Q_FUNC_INFO;
-    qDebug()<< "GOT TOKEN" << m_google->token();
+    qDebug() << "GOT TOKEN" << m_google->token();
     emit authFinish();
 }
 
@@ -86,16 +86,16 @@ void GoogleAuth::onAccessGranded()
  * Google auth need some personal data
  * you can use system json that stored into /usr/share/accounts/providers/google.json
  * or use user data that stored into ~/.config/accounts/google.json
-*/
+ */
 void GoogleAuth::loadAuthDataJSON()
 {
     bool valid = false;
     QFile jsonFile(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/accounts/google.json");
-    if(!jsonFile.exists()) {
+    if (!jsonFile.exists()) {
         qInfo() << "User json config not exists. Use system";
         jsonFile.setFileName("/usr/share/accounts/providers/google.json");
 
-        if(!jsonFile.exists()) {
+        if (!jsonFile.exists()) {
             qWarning() << "System json config not exists";
         } else {
             valid = true;
@@ -104,7 +104,7 @@ void GoogleAuth::loadAuthDataJSON()
         valid = true;
     }
 
-    if(!valid) {
+    if (!valid) {
         qCritical() << "Config not found";
         return;
     }
@@ -121,10 +121,7 @@ void GoogleAuth::loadAuthDataJSON()
     m_tokenUri = item["token_uri"].toString();
     m_clientSecret = item["client_secret"].toString();
 
-    if(m_authUri.isEmpty() ||
-        m_clientId.isEmpty() ||
-        m_tokenUri.isEmpty() ||
-        m_clientSecret.isEmpty()) {
+    if (m_authUri.isEmpty() || m_clientId.isEmpty() || m_tokenUri.isEmpty() || m_clientSecret.isEmpty()) {
         qCritical() << "Config is wrong";
     } else {
         emit configReady();
