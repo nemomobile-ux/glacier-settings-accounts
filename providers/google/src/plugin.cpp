@@ -17,27 +17,26 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include <QtQml>
-#include <QtGlobal>
 #include <QQmlEngine>
 #include <QQmlExtensionPlugin>
+#include <QtGlobal>
+#include <QtQml>
 
 #include "googleauth.h"
 
-class Q_DECL_EXPORT NemoGoogleAuthPlugin : public QQmlExtensionPlugin
-{
+class Q_DECL_EXPORT NemoGoogleAuthPlugin : public QQmlExtensionPlugin {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "org.nemomobile.googleauth")
 public:
     virtual ~NemoGoogleAuthPlugin() { }
 
-    void initializeEngine(QQmlEngine *, const char *uri)
+    void initializeEngine(QQmlEngine*, const char* uri)
     {
         Q_ASSERT(uri == QLatin1String("org.nemomobile.googleauth"));
         qmlRegisterModule(uri, 1, 0);
     }
 
-    void registerTypes(const char *uri)
+    void registerTypes(const char* uri)
     {
         Q_ASSERT(uri == QLatin1String("org.nemomobile.googleauth"));
         qmlRegisterType<GoogleAuth>(uri, 1, 0, "GoogleAuth");
