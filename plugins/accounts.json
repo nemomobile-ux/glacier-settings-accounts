@@ -1,7 +1,0 @@
-{
-    "path": "accounts",
-    "category": "Info",
-    "title": "Accounts",
-    "translation_dir": "/usr/share/glacier-settings/translations",
-    "translation_file": "glacier-settings-accounts"
-}

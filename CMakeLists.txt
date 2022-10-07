@@ -1,34 +1,57 @@
-cmake_minimum_required(VERSION 3.1.0)
+cmake_minimum_required(VERSION 3.6.0)
 
-project(glacier-settings-accounts
-        VERSION 0.1
-        DESCRIPTION "The Glacier settings accounts plugin")
 
-set(CMAKE_INSTALL_PREFIX /usr)
-set(CMAKE_AUTOMOC ON)
-
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
 include(FeatureSummary)
 include(GNUInstallDirs)
 
-set(QT_MIN_VERSION "5.8.0")
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_CXX_STANDARD 11)
+
+
+SET(PLUGIN accounts)
+SET(SRC accountssettingsplugin.cpp)
+SET(HEADERS accountssettingsplugin.h)
+
+SET(PLUGINS_FILES
+    accounts.qml
+    accounts.js
+    accounts.svg
+    CreateAccountSheet.qml
+)
+
 find_package(Qt5 COMPONENTS Core Qml Quick LinguistTools NetworkAuth REQUIRED)
 
-install(FILES plugins/accounts.json
-        DESTINATION /usr/share/glacier-settings/plugins)
+add_definitions(-DQT_PLUGIN)
 
-install(DIRECTORY qml/plugins/accounts
-        DESTINATION /usr/share/glacier-settings/qml/plugins)
+add_library(accounts MODULE ${SRC} ${HEADERS})
+
+target_link_libraries(accounts
+    Qt5::Core
+    Qt5::Gui
+    Qt5::Qml
+    Qt5::Quick
+    -lglaciersettings
+    )
+#    Glacier::Settings
+
+target_include_directories(accounts PUBLIC "/usr/include/glacier-settings/")
 
 add_subdirectory(providers)
 
+install(TARGETS ${PLUGIN}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/glacier-settings/)
+
+INSTALL(FILES ${PLUGINS_FILES}
+    DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/glacier-settings/plugins/${PLUGIN}/)
+
 # Translations
 file(GLOB TS_FILES translations/*.ts)
+#set_source_files_properties(${TS_FILES} PROPERTIES OUTPUT_LOCATION ${CMAKE_INSTALL_LOCALEDIR})
 qt5_add_translation(QM_FILES ${TS_FILES})
-add_custom_target(translations ALL DEPENDS ${QM_FILES}) # The keyword ALL is added instead add_dependencies
-#add_dependencies(glacier-settings-accounts translations)
-include(GNUInstallDirs) # The CMAKE_INSTALL_DATAROOTDIR is not defined by default
-
+add_custom_target(accounts_translations DEPENDS ${QM_FILES})
+add_dependencies(accounts accounts_translations)
 
 install(FILES ${QM_FILES}
-        DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/glacier-settings/translations)
+    DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/glacier-settings/translations)
+
