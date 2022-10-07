@@ -61,7 +61,7 @@ Page {
             label: model.providerDisplayName
             onClicked: {
                 sheet.selectedProvider = model.providerName
-                var componentFileName = "file:///usr/share/glacier-settings/qml/plugins/accounts/providers/" + provider.name + "/"  + provider.name + ".qml"
+                var componentFileName = "file:///usr/share/glacier-settings/plugins/accounts/providers/" + provider.name + "/"  + provider.name + ".qml"
 
                 pageStack.push(Qt.resolvedUrl(componentFileName),
                                { accountModel: accountModel, provider: provider })
