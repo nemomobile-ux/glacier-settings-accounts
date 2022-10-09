@@ -31,7 +31,7 @@ public:
     PluginCategory category() { return PluginCategory::Info; }
     QString id() { return "accounts"; }
     QString title() { return tr("Accounts"); }
-    QString description() { return tr("Accounts settings plugin"); }
+    QString description() { return tr("Integration with online accounts"); }
     QString qmlPath() { return "/usr/share/glacier-settings/plugins/accounts/accounts.qml"; }
     QString icon() { return "/usr/share/glacier-settings/plugins/accounts/accounts.svg"; }
     bool enabled() { return true; };

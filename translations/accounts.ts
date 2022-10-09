@@ -10,7 +10,7 @@
     </message>
     <message>
         <location filename="../accountssettingsplugin.h" line="34"/>
-        <source>Accounts settings plugin</source>
+        <source>Integration with online accounts</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
