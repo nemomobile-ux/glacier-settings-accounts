@@ -4,6 +4,6 @@ git:
       # all supported i18n types: https://docs.transifex.com/formats
       file_format: QT
       source_language: en
-      source_file: translations/glacier-settings-accounts.ts
+      source_file: translations/accounts.ts
       # path expression to translation files, must contain <lang> placeholder
-      translation_files_expression: 'translations/glacier-settings-accounts_<lang>.ts'
+      translation_files_expression: 'translations/accounts_<lang>.ts'

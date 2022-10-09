@@ -5,4 +5,4 @@
 #    DESTINATION /usr/share/themes/glacier/meegotouch/icons)
 
 install(DIRECTORY qml/
-    DESTINATION /usr/share/glacier-settings/qml/plugins/accounts/providers/email)
+    DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/glacier-settings/plugins/accounts/providers/email)
