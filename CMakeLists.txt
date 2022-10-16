@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 3.6.0)
 
+project(glacier-settings-accounts
+        VERSION 0.0.2
+        DESCRIPTION "Glacier settings accounts plugin")
+
 
 include(FeatureSummary)
 include(GNUInstallDirs)
