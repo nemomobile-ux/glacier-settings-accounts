@@ -7,6 +7,7 @@ project(glacier-settings-accounts
 
 include(FeatureSummary)
 include(GNUInstallDirs)
+set(CMAKE_INSTALL_PREFIX /usr)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
