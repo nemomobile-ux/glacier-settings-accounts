@@ -35,6 +35,7 @@ signals:
     void configReady();
     void openUrl(const QString& authUrl);
     void authFinish();
+    void error(QString error);
 
 private slots:
     void startAuth();

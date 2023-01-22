@@ -96,16 +96,17 @@ void GoogleAuth::loadAuthDataJSON()
         jsonFile.setFileName("/usr/share/accounts/providers/google.json");
 
         if (!jsonFile.exists()) {
-            qWarning() << "System json config not exists";
-        } else {
-            valid = true;
+            emit error(tr("System json config not exists"));
+            return;
         }
+        valid = true;
+
     } else {
         valid = true;
     }
 
     if (!valid) {
-        qCritical() << "Config not found";
+        emit error(tr("Config file not valid"));
         return;
     }
 

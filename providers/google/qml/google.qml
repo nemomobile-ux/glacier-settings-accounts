@@ -58,10 +58,21 @@ Page {
             auth();
         }
 
+        onError: {
+            view.visible = false
+            errorLabel.text = error
+        }
+
     }
 
     WebEngineView{
         id: view
         anchors.fill: parent
+    }
+
+    Label{
+        id: errorLabel
+        anchors.centerIn: parent
+        visible: !view.visible
     }
 }
