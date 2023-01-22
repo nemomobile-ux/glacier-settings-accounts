@@ -27,15 +27,21 @@ class GoogleAuth : public QObject {
     Q_OBJECT
     Q_DISABLE_COPY(GoogleAuth)
 
+    Q_PROPERTY(bool needAuth READ needAuth NOTIFY needAuthChanged)
+
 public:
     GoogleAuth(QObject* parent = 0);
     Q_INVOKABLE void auth();
+
+    bool needAuth() { return m_needAuth; }
 
 signals:
     void configReady();
     void openUrl(const QString& authUrl);
     void authFinish();
     void error(QString error);
+
+    void needAuthChanged();
 
 private slots:
     void startAuth();
@@ -45,6 +51,8 @@ private slots:
 private:
     void loadAuthDataJSON();
     QOAuth2AuthorizationCodeFlow* m_google;
+
+    bool m_needAuth;
 
     QString m_authUri;
     QString m_clientId;

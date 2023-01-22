@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022-2023 Chupligin Sergey (NeoChapay) <neochapay@gmail.com>
+ * Copyright (C) 2023 Chupligin Sergey (NeoChapay) <neochapay@gmail.com>
  *
  * You may use this file under the terms of the BSD license as follows:
  *
@@ -34,27 +34,46 @@ import QtQuick.Controls 1.0
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 
+import QtWebEngine 1.0
+
 import org.nemomobile.googleauth 1.0
-import org.nemomobile.accounts 1.0
 
 Page {
-    id: googleAccountPage
-
-    property AccountModel accountModel
-    property variant provider
+    id: googleAccountSetupPage
 
     headerTools: HeaderToolsLayout {
-        title: qsTr("Google")
+        title: qsTr("Setup google account")
         showBackButton: true
     }
 
-    GoogleAuth{
-        id: gAuth
+    WebEngineView{
+        id: webView
+        anchors.fill: parent
+    }
 
-        Component.onCompleted: {
-            if(gAuth.needAuth) {
-                pageStack.push(Qt.resolvedUrl("AccountSetup.qml"))
-            }
+    Label{
+        id: errorLabel
+        anchors.centerIn: parent
+        visible: !webView.visible
+    }
+
+    Connections{
+        target: gAuth
+        function onOpenUrl(authUrl) {
+            webView.url = authUrl
         }
+
+        function onError(error) {
+            webView.visible = false
+            errorLabel.text = error
+        }
+
+        function onAuthFinish() {
+            pageStack.pop()
+        }
+    }
+
+    Component.onCompleted: {
+        gAuth.auth();
     }
 }

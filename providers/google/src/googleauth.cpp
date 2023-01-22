@@ -29,6 +29,7 @@
 
 GoogleAuth::GoogleAuth(QObject* parent)
     : QObject(parent)
+    , m_needAuth(true)
 {
 }
 
@@ -40,8 +41,6 @@ void GoogleAuth::auth()
 
 void GoogleAuth::startAuth()
 {
-    qDebug() << Q_FUNC_INFO;
-
     m_google = new QOAuth2AuthorizationCodeFlow;
     m_google->setScope("email");
     m_google->setAuthorizationUrl(m_authUri);
@@ -113,7 +112,7 @@ void GoogleAuth::loadAuthDataJSON()
     jsonFile.open(QIODevice::ReadOnly | QIODevice::Text);
     QJsonDocument d = QJsonDocument::fromJson(jsonFile.readAll());
     QJsonObject sett2 = d.object();
-    QJsonValue value = sett2.value(QString("web"));
+    QJsonValue value = sett2.value(QString("installed"));
 
     QJsonObject item = value.toObject();
 
@@ -123,7 +122,8 @@ void GoogleAuth::loadAuthDataJSON()
     m_clientSecret = item["client_secret"].toString();
 
     if (m_authUri.isEmpty() || m_clientId.isEmpty() || m_tokenUri.isEmpty() || m_clientSecret.isEmpty()) {
-        qCritical() << "Config is wrong";
+        emit error(tr("Config is wrong"));
+        return;
     } else {
         emit configReady();
     }
