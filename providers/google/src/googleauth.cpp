@@ -78,7 +78,7 @@ void GoogleAuth::onAccessGranded()
 {
     qDebug() << Q_FUNC_INFO;
     qDebug() << "GOT TOKEN" << m_google->token();
-    emit authFinish();
+    emit authFinish(m_google->token());
 }
 
 /*

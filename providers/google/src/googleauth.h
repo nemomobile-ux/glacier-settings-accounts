@@ -38,7 +38,7 @@ public:
 signals:
     void configReady();
     void openUrl(const QString& authUrl);
-    void authFinish();
+    void authFinish(const QString& token);
     void error(QString error);
 
     void needAuthChanged();

@@ -67,10 +67,6 @@ Page {
             webView.visible = false
             errorLabel.text = error
         }
-
-        function onAuthFinish() {
-            pageStack.pop()
-        }
     }
 
     Component.onCompleted: {

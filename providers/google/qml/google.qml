@@ -36,12 +36,48 @@ import QtQuick.Controls.Styles.Nemo 1.0
 
 import org.nemomobile.googleauth 1.0
 import org.nemomobile.accounts 1.0
+import org.nemomobile.social 1.0
 
 Page {
     id: googleAccountPage
 
     property AccountModel accountModel
-    property variant provider
+    property Provider provider
+    property int accountId: 0
+    property string _existingUserName
+    property bool hasSetName
+
+    property Account newAccount: Account{
+        identifier: googleAccountPage.accountId
+        onStatusChanged: {
+            if (status == Account.Initialized ) {
+                console.log("Init or synced")
+            } else if (status == Account.Invalide) {
+                console.log("Accoout is invalid!!!")
+            } else if (status == Account.Synced) {
+                console.log("Accoout is synced")
+            } else if (status == Account.Error) {
+                console.log("Google provider account error:", errorMessage)
+            }
+        }
+    }
+
+    property SocialNetwork newSocialNetwork: SocialNetwork{
+        onArbitraryRequestResponseReceived: {
+            var userEmail = data["email"]
+            if (userEmail == undefined || userEmail == "") {
+                console.log("email is empty")
+            } else {
+                newAccount.displayName = userEmail
+                newAccount.setConfigurationValue("", "default_credentials_username", userEmail)
+                newAccount.setConfigurationValue("google-gmail", "emailaddress", userEmail)
+                newAccount.setConfigurationValue("google-gmail", "imap4/username", userEmail)
+                newAccount.setConfigurationValue("google-gmail", "smtp/smtpusername", userEmail)
+                newAccount.sync()
+                console.log("Make sync")
+            }
+        }
+    }
 
     headerTools: HeaderToolsLayout {
         title: qsTr("Google")
@@ -53,8 +89,21 @@ Page {
 
         Component.onCompleted: {
             if(gAuth.needAuth) {
-                pageStack.push(Qt.resolvedUrl("AccountSetup.qml"))
+                mainLoader.setSource(Qt.resolvedUrl("AccountSetup.qml"))
             }
         }
+
+        onAuthFinish: {
+            var queryItems = {"access_token": token}
+            newSocialNetwork.arbitraryRequest(SocialNetwork.Get, "https://www.googleapis.com/oauth2/v2/userinfo", queryItems)
+        }
+    }
+
+    Loader{
+        id: mainLoader
+        anchors.fill: parent
+
+        asynchronous: true
+        visible: status == Loader.Ready
     }
 }
