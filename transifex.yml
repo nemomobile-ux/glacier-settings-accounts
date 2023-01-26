@@ -4,6 +4,6 @@ git:
       # all supported i18n types: https://docs.transifex.com/formats
       file_format: QT
       source_language: en
-      source_file: translations/accounts.ts
+      source_file: src/translations/accounts.ts
       # path expression to translation files, must contain <lang> placeholder
       translation_files_expression: 'src/translations/accounts_<lang>.ts'
