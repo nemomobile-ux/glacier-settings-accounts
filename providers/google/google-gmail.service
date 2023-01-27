@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service id="google-gmail">
+    <type>e-mail</type>
+    <name>GMail</name>
+    <provider>google</provider>
+    <icon>image://theme/icon-m-mail</icon>
+
+    <template>
+        <setting name="type" type="i">8</setting>
+        <setting name="status" type="t">10232</setting>
+        <setting name="emailaddress" type="s"></setting>
+        <setting name="signatureEnabled" type="b">true</setting>
+        <setting name="signature"></setting>
+        <setting name="fullName"></setting>
+        <setting name="enabled" type="b">true</setting>
+        <setting name="canTransmit" type="b">true</setting>
+        <setting name="iconPath" type="s">image://theme/graphic-service-google</setting>
+        <setting name="sync_profile_templates" type="as">["syncemail"]</setting>
+        <group name="auth">
+            <setting name="method">oauth2</setting>
+            <setting name="mechanism">web_server</setting>
+            <group name="oauth2">
+                <group name="web_server">
+                    <setting name="Host">accounts.google.com</setting>
+                    <setting name="AuthPath">o/oauth2/auth?access_type=offline</setting>
+                    <setting name="TokenPath">o/oauth2/token</setting>
+                    <setting name="RedirectUri">urn:ietf:wg:oauth:2.0:oob</setting>
+                    <setting name="ResponseType">code</setting>
+                    <setting name="Scope" type="as">["https://www.googleapis.com/auth/userinfo.email","https://mail.google.com/"]</setting>
+                    <setting name="Schemes">Bearer</setting>
+                    <setting name="AllowedSchemes" type="as">["https"]</setting>
+                </group>
+            </group>
+        </group>
+        <group name="imap4">
+           <setting name="server">imap.gmail.com</setting>
+           <setting name="username"></setting>
+           <setting name="password"></setting>
+           <setting name="port">993</setting>
+           <setting name="authentication" type="s">1</setting>
+           <setting name="encryption" type="s">1</setting>
+           <setting name="pushCapable" type="s">1</setting>
+           <setting name="baseFolder"></setting>
+           <setting name="draftsFolder"></setting>
+           <setting name="trashFolder"></setting>
+           <setting name="junkFolder"></setting>
+           <setting name="checkInterval" type="i">0</setting>
+           <setting name="servicetype">source</setting>
+           <setting name="acceptUntrustedCertificates" type="b">false</setting>
+        </group>
+        <group name="smtp">
+           <setting name="smtpusername"></setting>
+           <setting name="smtppassword"></setting>
+           <setting name="server">smtp.gmail.com</setting>
+           <setting name="port">465</setting>
+           <setting name="authentication" type="s">1</setting>
+           <setting name="encryption" type="s">1</setting>
+           <setting name="servicetype">sink</setting>
+           <setting name="acceptUntrustedCertificates" type="b">false</setting>
+         </group>
+    </template>
+</service>

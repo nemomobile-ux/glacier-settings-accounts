@@ -1,6 +1,9 @@
 install(FILES jabber.provider
     DESTINATION /usr/share/accounts/providers)
 
+install(FILES jabber.service
+    DESTINATION /usr/share/accounts/services)
+
 install(FILES icon-s-common-jabber.png
     DESTINATION /usr/share/themes/glacier/meegotouch/icons)
 
