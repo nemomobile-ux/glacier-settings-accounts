@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service-type id="carddav">
+  <name>CardDAV</name>
+  <description>A service of this type allows syncing of contact data.</description>
+  <icon>image://theme/icon-m-sync</icon>
+  <tags>
+    <tag>sync</tag>
+    <tag>pim</tag>
+    <tag>carddav</tag>
+    <tag>contacts</tag>
+    <tag>synchronisation</tag>
+    <tag>synchronization</tag>
+  </tags>
+</service-type>

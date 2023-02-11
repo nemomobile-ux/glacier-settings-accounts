@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service-type id="storage">
+  <name>Cloud storage service</name>
+  <description>A service of this type allows data to be stored and accessed remotely</description>
+  <icon></icon>
+  <tags>
+    <tag>storage</tag>
+    <tag>cloud</tag>
+    <tag>content</tag>
+  </tags>
+</service-type>

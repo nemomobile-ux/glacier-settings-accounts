@@ -16,4 +16,5 @@ set(CMAKE_CXX_STANDARD 11)
 find_package(Qt5 COMPONENTS Core Qml Quick LinguistTools NetworkAuth REQUIRED)
 
 add_subdirectory(src)
+add_subdirectory(service_types)
 add_subdirectory(providers)

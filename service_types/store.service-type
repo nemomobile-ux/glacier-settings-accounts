@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service-type id="store">
+  <name>Application or content store</name>
+  <description>A service of this type allows purchasing content or applications from a store</description>
+  <icon></icon>
+  <tags>
+    <tag>store</tag>
+    <tag>apps</tag>
+    <tag>content</tag>
+  </tags>
+</service-type>

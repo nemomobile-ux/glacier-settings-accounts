@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service-type id="e-mail">
+  <name>E-Mail</name>
+  <description>A service of this type allows sending and receiving emails</description>
+  <icon>image://theme/icon-m-email</icon>
+  <tags>
+    <tag>email</tag>
+    <tag>e-mail</tag>
+    <tag>mail</tag>
+  </tags>
+</service-type>

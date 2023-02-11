@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service-type id="sync">
+  <name>Data Synchronisation</name>
+  <description>A service of this type allows syncing PIM or other data</description>
+  <icon>image://theme/icon-m-sync</icon>
+  <tags>
+    <tag>sync</tag>
+    <tag>pim</tag>
+    <tag>scheduling</tag>
+    <tag>calendars</tag>
+    <tag>contacts</tag>
+    <tag>events</tag>
+    <tag>notifications</tag>
+    <tag>synchronisation</tag>
+    <tag>synchronization</tag>
+  </tags>
+</service-type>
