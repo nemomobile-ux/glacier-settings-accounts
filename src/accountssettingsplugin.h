@@ -20,7 +20,7 @@
 #ifndef ACCOUNTSSETTINGSPLUGIN_H
 #define ACCOUNTSSETTINGSPLUGIN_H
 
-#include "glaciersettingsplugin.h"
+#include <glaciersettingsplugin.h>
 
 class AccountsSettingsPlugin : public GlacierSettingsPlugin {
     Q_OBJECT
@@ -28,13 +28,13 @@ class AccountsSettingsPlugin : public GlacierSettingsPlugin {
     Q_PLUGIN_METADATA(IID "Glacier.SettingsPlugin")
 public:
     AccountsSettingsPlugin(QObject* parent = nullptr);
-    PluginCategory category() { return PluginCategory::Info; }
-    QString id() { return "accounts"; }
-    QString title() { return tr("Accounts"); }
-    QString description() { return tr("Integration with online accounts"); }
-    QString qmlPath() { return "/usr/share/glacier-settings/plugins/accounts/accounts.qml"; }
-    QString icon() { return "/usr/share/glacier-settings/plugins/accounts/accounts.svg"; }
-    bool enabled() { return true; };
+    PluginCategory category() const override { return PluginCategory::Info; }
+    QString id() const override { return "accounts"; }
+    QString title() const override { return tr("Accounts"); }
+    QString description() const override { return tr("Integration with online accounts"); }
+    QString qmlPath() const override { return "/usr/share/glacier-settings/plugins/accounts/accounts.qml"; }
+    QString icon() const override { return "/usr/share/glacier-settings/plugins/accounts/accounts.svg"; }
+    bool enabled() override { return true; }
 };
 
 #endif // ACCOUNTSSETTINGSPLUGIN_H

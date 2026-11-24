@@ -21,6 +21,7 @@
 #include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QMultiMap>
 #include <QOAuth2AuthorizationCodeFlow>
 #include <QOAuthHttpServerReplyHandler>
 #include <QStandardPaths>
@@ -45,17 +46,17 @@ void GoogleAuth::startAuth()
     m_google->setScope("email");
     m_google->setAuthorizationUrl(m_authUri);
     m_google->setClientIdentifier(m_clientId);
-    m_google->setAccessTokenUrl(m_tokenUri);
+    m_google->setTokenUrl(QUrl(m_tokenUri));
     m_google->setClientIdentifierSharedKey(m_clientSecret);
 
     QOAuthHttpServerReplyHandler* replyHandler = new QOAuthHttpServerReplyHandler(1234, this);
     m_google->setReplyHandler(replyHandler);
 
-    m_google->setModifyParametersFunction([](QAbstractOAuth::Stage stage, QVariantMap* parameters) {
+    m_google->setModifyParametersFunction([](QAbstractOAuth::Stage stage, QMultiMap<QString, QVariant>* parameters) {
         // Percent-decode the "code" parameter so Google can match it
         if (stage == QAbstractOAuth::Stage::RequestingAccessToken) {
-            QByteArray code = parameters->value("code").toByteArray();
-            (*parameters)["code"] = QUrl::fromPercentEncoding(code);
+            const QByteArray code = parameters->value("code").toByteArray();
+            parameters->replace("code", QUrl::fromPercentEncoding(code));
         }
     });
 

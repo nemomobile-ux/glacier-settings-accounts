@@ -30,10 +30,8 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
  */
 
-import QtQuick 2.0
-import QtQuick.Controls 1.0
-import QtQuick.Controls.Nemo 1.0
-import QtQuick.Controls.Styles.Nemo 1.0
+import QtQuick
+import Nemo.Controls
 
 import org.nemomobile.accounts 1.0
 
@@ -50,12 +48,8 @@ Page {
                 iconSource: "image://theme/plus"
                 showCounter: false
                 onClicked: {
-                    onClicked: {
-                        pageStack.push(Qt.resolvedUrl("CreateAccountSheet.qml"),
-                                       { accountModel: accountModel })
-
-
-                    }
+                    pageStack.push(Qt.resolvedUrl("CreateAccountSheet.qml"),
+                                   { accountModel: accountModel })
                 }
             }
         ]
